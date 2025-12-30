@@ -1,5 +1,6 @@
 from fpdf import FPDF
 import pandas as pd
+from helpers import draw_lines
 
 pdf = FPDF(orientation="P", unit="mm", format="A4")
 pdf.set_auto_page_break(auto=False, margin=0)
@@ -12,7 +13,9 @@ for index, row in df.iterrows():
     pdf.set_font(family="Helvetica", style="B", size=20)
     pdf.set_text_color(254,0,0)
     pdf.cell(w=0, h=12, txt=row["Topic"], align="L", ln=1)
-    pdf.line(x1=10,y1=20,x2=200,y2=20)
+
+    # Draw lines
+    draw_lines(pdf)
 
     # Set footer
     pdf.ln(265)
@@ -23,6 +26,9 @@ for index, row in df.iterrows():
     for i in range(row["Pages"] -1 ):
         # Set header
         pdf.add_page()
+
+        # Draw lines
+        draw_lines(pdf)
 
         # Set footer
         pdf.ln(277) # 265 (break lines ln) + 12 (height cell header)
